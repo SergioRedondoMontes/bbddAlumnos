@@ -63,7 +63,7 @@ public class VistaPrincipal extends JFrame {
 			new String[] {
 				"COD", "DNI", "NOMBRE", "APELLIDO", "NACIONALIDAD", "TELEFONO"
 			}
-		));
+		)); 
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 	}
