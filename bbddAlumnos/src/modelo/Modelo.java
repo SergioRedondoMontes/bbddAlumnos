@@ -20,6 +20,7 @@ import vista.VistaPrincipal;
 
 public class Modelo {
 	
+	private int cod;
 	private String dni;
 	private String nombre;
 	private String apellido;
@@ -61,8 +62,8 @@ public class Modelo {
 		}
 	}
 
-	public Modelo( String dni, String nombre, String apellido,int telefono, String nacionalidad) {
-		
+	public Modelo(int cod, String dni, String nombre, String apellido,int telefono, String nacionalidad) {
+		this.cod= cod;
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -89,7 +90,7 @@ public class Modelo {
 		
 //		INSERT INTO `alumnos` (`cod`, `dni`, `nombre`, `apellido`, `telefono`, `nacionalidad`) VALUES (NULL, '34556d', 'dgfcg', 'hol', '1234', 'españa');
 		
-		String query="INSERT INTO `alumnos` (`cod`, `dni`, `nombre`, `apellido`, `telefono`, `nacionalidad`) VALUES (?,?,?,?,?,?,?,?,?)";
+		String query="INSERT INTO `alumnos` (`dni`, `nombre`, `apellido`, `telefono`, `nacionalidad`) VALUES (?,?,?,?,?)";
 		try {
 			ps = con.prepareStatement(query);
 			ps.setString(1, DNI);
@@ -127,7 +128,7 @@ public class Modelo {
 			rs = st.executeQuery(query);
 			Modelo database;
 			while (rs.next()) {
-				database = new Modelo(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
+				database = new Modelo(rs.getInt("cod"),rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
 						rs.getInt("telefono"), rs.getString("nacionalidad"));
 				inscripcionesList.add(database);
 			}
@@ -147,11 +148,12 @@ public class Modelo {
 
 		Object[] row = new Object[6];
 		for (int i = 0; i < list.size(); i++) {
-			row[0] = list.get(i).getDni();
-			row[1] = list.get(i).getNombre();
-			row[2] = list.get(i).getApellido();
-			row[3] = list.get(i).getTelefono();
-			row[4] = list.get(i).getNacionalidad();
+			row[0] = list.get(i).getCod();
+			row[1] = list.get(i).getDni();
+			row[2] = list.get(i).getNombre();
+			row[3] = list.get(i).getApellido();
+			row[4] = list.get(i).getTelefono();
+			row[5] = list.get(i).getNacionalidad();
 			//row[5] = list.get(i).getEstado();
 
 			model.addRow(row);
@@ -197,6 +199,10 @@ public class Modelo {
 
 	public VistaPrincipal getVistaPrincipal() {
 		return vistaPrincipal;
+	}
+
+	public int getCod() {
+		return cod;
 	}
 	
 	
