@@ -24,7 +24,7 @@ public class Launch {
 
 
 		
-		//vistaPrincipal.onLoadTable();
+		vistaPrincipal.onLoadTable();
 		modelo.getConnection();
 		
 		vistaPrincipal.setVisible(true);

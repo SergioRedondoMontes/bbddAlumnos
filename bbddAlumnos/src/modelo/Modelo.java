@@ -73,19 +73,17 @@ public class Modelo {
 	public Connection getConnection() {
 		Connection con;
 		try {
-			System.out.println("conectado");
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, usuario, clave);
 			return con;
 		} catch (Exception e) {
-			System.out.println("NO conectado");
 			JOptionPane.showMessageDialog(null, "No se pudo conectar con la base de datos, modifique la informaci�n en la configuraci�n");
 			return null;
 			// TODO: handle exception
 		}
 	}
 		
-	public void inertPersona(String DNI, String nombre, String apellido, int telefono, String nacionalidad) {
+	public void insertPersona(String DNI, String nombre, String apellido, int telefono, String nacionalidad) {
 		Connection con = getConnection();
 		PreparedStatement ps;
 		
@@ -118,10 +116,89 @@ public class Modelo {
 		}
 	}
 	
+	public ArrayList<Modelo> getInscripcionesList() {
+		ArrayList<Modelo> inscripcionesList = new ArrayList<Modelo>();
+		Connection connection = getConnection();
+		String query = "SELECT * FROM `alumnos`";
+		Statement st;
+		ResultSet rs;
+		try {
+			st = connection.createStatement();
+			rs = st.executeQuery(query);
+			Modelo database;
+			while (rs.next()) {
+				database = new Modelo(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
+						rs.getInt("telefono"), rs.getString("nacionalidad"));
+				inscripcionesList.add(database);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return inscripcionesList;
+	}
+
+	/*
+	 * Mostrar Tabla
+	 */
+
+	public void ShowJTable() {
+		ArrayList<Modelo> list = getInscripcionesList();
+		DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
+
+		Object[] row = new Object[6];
+		for (int i = 0; i < list.size(); i++) {
+			row[0] = list.get(i).getDni();
+			row[1] = list.get(i).getNombre();
+			row[2] = list.get(i).getApellido();
+			row[3] = list.get(i).getTelefono();
+			row[4] = list.get(i).getNacionalidad();
+			//row[5] = list.get(i).getEstado();
+
+			model.addRow(row);
+		}
+	}
+	
 	
 	public void setVistaPrincipal(VistaPrincipal vistaPrincipal) {
 		this.vistaPrincipal = vistaPrincipal;
 	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public int getTelefono() {
+		return telefono;
+	}
+
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public VistaPrincipal getVistaPrincipal() {
+		return vistaPrincipal;
+	}
 	
 	
 }
+

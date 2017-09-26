@@ -1,20 +1,17 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import controlador.Controlador;
 import modelo.Modelo;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
 
 public class VistaPrincipal extends JFrame {
 
@@ -57,8 +54,7 @@ public class VistaPrincipal extends JFrame {
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
+				
 			},
 			new String[] {
 				"COD", "DNI", "NOMBRE", "APELLIDO", "NACIONALIDAD", "TELEFONO"
@@ -68,6 +64,14 @@ public class VistaPrincipal extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
+	
+	public void onLoadTable() {
+		controlador.MostrarTabla();
+	}
+
+	public TableModel getTablaInfo() {
+		return table.getModel();
+	}
 	
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
