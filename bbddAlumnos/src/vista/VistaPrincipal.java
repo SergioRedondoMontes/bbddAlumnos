@@ -12,6 +12,13 @@ import javax.swing.table.TableModel;
 
 import controlador.Controlador;
 import modelo.Modelo;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VistaPrincipal extends JFrame {
 
@@ -19,6 +26,11 @@ public class VistaPrincipal extends JFrame {
 	private Controlador controlador;
 	private Modelo modelo;
 	private JTable table;
+	private JTextField tfDNI;
+	private JTextField tfNombre;
+	private JTextField tfApellido;
+	private JTextField tfTlf;
+	private JTextField tfNacionalidad;
 	/**
 	 * Launch the application.
 	 */
@@ -35,20 +47,101 @@ public class VistaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
+		JLabel lblDNI = new JLabel("DNI");
+		
+		tfDNI = new JTextField();
+		tfDNI.setColumns(10);
+		
+		JLabel lblNombre = new JLabel("NOMBRE");
+		
+		tfNombre = new JTextField();
+		tfNombre.setColumns(10);
+		
+		JLabel lblApellido = new JLabel("APELLIDO");
+		
+		tfApellido = new JTextField();
+		tfApellido.setColumns(10);
+		
+		JLabel lblTelefono = new JLabel("TELEFONO");
+		
+		tfTlf = new JTextField();
+		tfTlf.setColumns(10);
+		
+		JLabel lblNacionalidad = new JLabel("NACIONALIDAD");
+		
+		tfNacionalidad = new JTextField();
+		tfNacionalidad.setColumns(10);
+		
+		JLabel lblAnadir = new JLabel("AÑADIR");
+		lblAnadir.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		
+		JButton btnInsertarAlumno = new JButton("Insertar Alumno");
+		btnInsertarAlumno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.InsertPersona();
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 656, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 656, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(lblAnadir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+											.addComponent(lblTelefono, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(lblApellido, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(lblDNI, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+											.addComponent(lblNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(lblNacionalidad, Alignment.LEADING))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+											.addComponent(tfNacionalidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(tfTlf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(tfApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+												.addComponent(tfDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(tfNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(43)
+							.addComponent(btnInsertarAlumno)))
+					.addContainerGap(21, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 329, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(218, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(lblAnadir)
+					.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDNI)
+						.addComponent(tfDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNombre)
+						.addComponent(tfNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblApellido)
+						.addComponent(tfApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTelefono)
+						.addComponent(tfTlf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNacionalidad)
+						.addComponent(tfNacionalidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnInsertarAlumno))
 		);
 		
 		table = new JTable();
@@ -79,5 +172,55 @@ public class VistaPrincipal extends JFrame {
 
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
+	}
+
+
+	public String getTfDNI() {
+		return tfDNI.getText();
+	}
+
+
+	public void setTfDNI(JTextField tfDNI) {
+		this.tfDNI = tfDNI;
+	}
+
+
+	public String getTfNombre() {
+		return tfNombre.getText();
+	}
+
+
+	public void setTfNombre(JTextField tfNombre) {
+		this.tfNombre = tfNombre;
+	}
+
+
+	public String getTfApellido() {
+		return tfApellido.getText();
+	}
+
+
+	public void setTfApellido(JTextField tfApellido) {
+		this.tfApellido = tfApellido;
+	}
+
+
+	public String getTfTlf() {
+		return tfTlf.getText();
+	}
+
+
+	public void setTfTlf(JTextField tfTlf) {
+		this.tfTlf = tfTlf;
+	}
+
+
+	public String getTfNacionalidad() {
+		return tfNacionalidad.getText();
+	}
+
+
+	public void setTfNacionalidad(JTextField tfNacionalidad) {
+		this.tfNacionalidad = tfNacionalidad;
 	}
 }

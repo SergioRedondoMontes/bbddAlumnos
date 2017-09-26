@@ -22,7 +22,9 @@ public class Controlador {
 		Modelo.ShowJTable();
 	}
 
-	
+	public void InsertPersona() {
+		Modelo.insertPersona(VistaPrincipal.getTfDNI(), VistaPrincipal.getTfNombre(), VistaPrincipal.getTfApellido(), Integer.parseInt(VistaPrincipal.getTfTlf()),VistaPrincipal.getTfNacionalidad());
+	}
 	
 	public void enableComponents(Container container, boolean enable) {
 		Component[] components = container.getComponents();

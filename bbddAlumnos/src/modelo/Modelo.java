@@ -107,7 +107,10 @@ public class Modelo {
 //				DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
 //				model.setRowCount(0);
 //				ShowJTable();
-				JOptionPane.showMessageDialog(null, "Informaci�n almacenada satisfactoriamente");			
+				JOptionPane.showMessageDialog(null, "Informaci�n almacenada satisfactoriamente");
+				DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
+				model.setRowCount(0);
+				ShowJTable();
 			} else {
 				JOptionPane.showMessageDialog(null, "La informaci�n no pudo ser almacenada");
 			}
