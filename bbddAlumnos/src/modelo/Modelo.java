@@ -1,7 +1,9 @@
 package modelo;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -14,7 +16,6 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 import vista.VistaPrincipal;
 
@@ -120,6 +121,40 @@ public class Modelo {
 		}
 	}
 	
+	
+	public void delPersona(int cod){
+		Connection con = getConnection();
+		PreparedStatement ps;
+		
+//		DELETE FROM `alumnos` WHERE `alumnos`.`cod` = 5
+		
+		String query="delete from alumnos where cod = ?";
+		try {
+			ps = con.prepareStatement(query);
+			ps.setInt(1, cod);
+			
+
+			
+			
+			
+			if (ps.executeUpdate() == 1) {
+
+//				DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
+//				model.setRowCount(0);
+//				ShowJTable();
+				JOptionPane.showMessageDialog(null, "Informaci�n fue eliminada satisfactoriamente");
+				DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
+				model.setRowCount(0);
+				ShowJTable();
+			} else {
+				JOptionPane.showMessageDialog(null, "La informaci�n no pudo ser eliminada");
+			}
+		} catch (Exception ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		}
+	}
+	
 	public ArrayList<Modelo> getInscripcionesList() {
 		ArrayList<Modelo> inscripcionesList = new ArrayList<Modelo>();
 		Connection connection = getConnection();
@@ -162,6 +197,88 @@ public class Modelo {
 			model.addRow(row);
 		}
 	}
+	
+	public void guardaTabla(){
+        try {
+
+            String BBDDfichero = "src/archivos/DatosTabla.txt";
+            BufferedWriter bfw = new BufferedWriter(new FileWriter(BBDDfichero ));
+
+            for (int i = 0 ; i < vistaPrincipal.getTable().getRowCount(); i++) //realiza un barrido por filas.
+            {
+                for(int j = 0 ; j < vistaPrincipal.getTable().getColumnCount();j++) //realiza un barrido por columnas.
+                {
+                    bfw.write(String.valueOf(vistaPrincipal.getTable().getValueAt(i,j)));
+                    if (j < vistaPrincipal.getTable().getColumnCount() -1) { //agrega separador "," si no es el ultimo elemento de la fila.
+                        bfw.write(",");
+                    }
+                }
+                bfw.newLine(); //inserta nueva linea.
+            }
+
+            bfw.close(); //cierra archivo!
+            JOptionPane.showMessageDialog(null, "El archivo fue salvado correctamente!");
+        } catch (IOException e) {
+        	JOptionPane.showMessageDialog(null, "ERROR: Ocurrio un problema al salvar el archivo!" + e.getMessage());
+        }
+    }
+	
+	public void ficheroABBDD(int resp){
+		if (resp==0) {
+			Connection con = getConnection();
+			PreparedStatement ps;
+			
+//			DELETE FROM `alumnos` WHERE `alumnos`.`cod` = 5
+			
+			String query="LOAD DATA LOCAL INFILE 'src/archivos/DatosTabla.txt' INTO TABLE alumnos  FIELDS TERMINATED BY ',' ENCLOSED BY '''' LINES TERMINATED BY '\n' ";
+			
+			try {
+				ps = con.prepareStatement(query);
+
+				
+					JOptionPane.showMessageDialog(null, "Informaci�n fue cargada satisfactoriamente");
+
+				
+			} catch (Exception ex) {
+				// TODO: handle exception
+				ex.printStackTrace();
+			}
+			DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
+			model.setRowCount(0);
+			ShowJTable();
+		}
+		
+	}
+	
+	public void delTodo() {
+		Connection con = getConnection();
+		PreparedStatement ps;
+		
+//		DELETE FROM `alumnos` WHERE `alumnos`.`cod` = 5
+		
+		String query="delete from alumnos";
+		try {
+			ps = con.prepareStatement(query);
+			
+			if (ps.executeUpdate() == 1) {
+
+//				DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
+//				model.setRowCount(0);
+//				ShowJTable();
+				JOptionPane.showMessageDialog(null, "Informaci�n fue eliminada satisfactoriamente");
+				DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
+				model.setRowCount(0);
+				ShowJTable();
+			} else {
+				JOptionPane.showMessageDialog(null, "La informaci�n no pudo ser eliminada");
+			}
+		} catch (Exception ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		}
+		
+	}
+
 	
 	
 	public void setVistaPrincipal(VistaPrincipal vistaPrincipal) {
@@ -207,7 +324,8 @@ public class Modelo {
 	public int getCod() {
 		return cod;
 	}
-	
+
+		
 	
 }
 
