@@ -230,7 +230,7 @@ public class Modelo {
 			
 //			DELETE FROM `alumnos` WHERE `alumnos`.`cod` = 5
 			
-			String query="LOAD DATA LOCAL INFILE 'src/archivos/DatosTabla.txt' INTO TABLE alumnos  FIELDS TERMINATED BY ',' ENCLOSED BY '''' LINES TERMINATED BY '\n' ";
+			String query = "LOAD DATA LOCAL INFILE 'src/archivos/DatosTabla.txt' INTO TABLE alumnos  FIELDS TERMINATED BY ',' ENCLOSED BY '''' LINES TERMINATED BY '\n' ";
 			
 			try {
 				ps = con.prepareStatement(query);
@@ -254,7 +254,7 @@ public class Modelo {
 		Connection con = getConnection();
 		PreparedStatement ps;
 		
-//		DELETE FROM `alumnos` WHERE `alumnos`.`cod` = 5
+
 		
 		String query="delete from alumnos";
 		try {
@@ -262,9 +262,7 @@ public class Modelo {
 			
 			if (ps.executeUpdate() == 1) {
 
-//				DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
-//				model.setRowCount(0);
-//				ShowJTable();
+
 				JOptionPane.showMessageDialog(null, "Informaci�n fue eliminada satisfactoriamente");
 				DefaultTableModel model = (DefaultTableModel) vistaPrincipal.getTablaInfo();
 				model.setRowCount(0);

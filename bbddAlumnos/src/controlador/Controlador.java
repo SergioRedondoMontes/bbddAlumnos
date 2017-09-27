@@ -9,11 +9,11 @@ import modelo.Modelo;
 import vista.VistaPrincipal;
 
 public class Controlador {
-	
+
 	private int cod;
 	private Modelo Modelo;
 	private VistaPrincipal VistaPrincipal;
-	
+
 	public void setModelo(Modelo modelo) {
 		this.Modelo = modelo;
 	}
@@ -21,19 +21,20 @@ public class Controlador {
 	public void setVistaPrincipal(VistaPrincipal vistaPrincipal) {
 		this.VistaPrincipal = vistaPrincipal;
 	}
-	
+
 	public void MostrarTabla() {
 		Modelo.ShowJTable();
 	}
 
 	public void InsertPersona() {
-		Modelo.insertPersona(VistaPrincipal.getTfDNI(), VistaPrincipal.getTfNombre(), VistaPrincipal.getTfApellido(), Integer.parseInt(VistaPrincipal.getTfTlf()),VistaPrincipal.getTfNacionalidad());
+		Modelo.insertPersona(VistaPrincipal.getTfDNI(), VistaPrincipal.getTfNombre(), VistaPrincipal.getTfApellido(),
+				Integer.parseInt(VistaPrincipal.getTfTlf()), VistaPrincipal.getTfNacionalidad());
 	}
-	
-	public void delPersona(){
+
+	public void delPersona() {
 		Modelo.delPersona(cod);
 	}
-	
+
 	public void enableComponents(Container container, boolean enable) {
 		Component[] components = container.getComponents();
 		for (Component component : components) {
@@ -45,22 +46,23 @@ public class Controlador {
 	}
 
 	public void codPersona() {
-		cod = Integer.parseInt(String.valueOf(VistaPrincipal.getTable().getValueAt(VistaPrincipal.getTable().getSelectedRow(), 0)));
+		cod = Integer.parseInt(
+				String.valueOf(VistaPrincipal.getTable().getValueAt(VistaPrincipal.getTable().getSelectedRow(), 0)));
 	}
 
 	public void guardarDatos() {
 		Modelo.guardaTabla();
-		
+
 	}
 
 	public void delTodo() {
 		Modelo.delTodo();
-		
+
 	}
 
 	public void confirmacion() {
 		int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Alerta!", JOptionPane.YES_NO_OPTION);
 		Modelo.ficheroABBDD(resp);
 	}
-	
+
 }
